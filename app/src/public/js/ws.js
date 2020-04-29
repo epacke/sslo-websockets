@@ -2,16 +2,18 @@ $( document ).ready(function() {
 
     // Open a websocket to backend to get the logstash output
     connectToBackend();
-
+    $('button#connect-to-backend').on('click', function(){
+        connectToBackend($('input#backend-url').val());
+    })
 });
 
 
-async function connectToBackend() {
+async function connectToBackend(url) {
 
     let t;
 
     try {
-        var ws = await new WebSocket("ws://localhost:8080/getLogs");
+        var ws = await new WebSocket(url);
     } catch (err) {
         console.error("Unable to connect to the backend")
         throw "Unable to connec to the backend";
@@ -41,7 +43,7 @@ async function connectToBackend() {
         $('#websocket-status-button').removeClass('btn-success').addClass('btn-danger').html('Backend closed the connection');
         let reconn = setInterval(async () => {
             try {
-                await connectToBackend();
+                await connectToBackend(url);
                 clearInterval(reconn);
             } catch (e) {
                 console.error("Reconnect failed");
