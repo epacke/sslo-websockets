@@ -1,0 +1,5 @@
+FROM nginx
+
+COPY src/key.pem /etc/ssl/private/
+COPY src/cert.pem /etc/ssl/certs/
+COPY src/default.conf /etc/nginx/conf.d/

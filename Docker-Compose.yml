@@ -1,0 +1,18 @@
+version: "3"
+services:
+  websockets-backend:
+    build:
+      context: app
+      dockerfile: DockerFile
+    container_name: "websockets-backend"
+    ports:
+      - "8080:8080"
+  nginx:
+    build:
+      context: nginx
+      dockerfile: DockerFile
+    container_name: "nginx"
+    image: nginx
+    ports:
+      - 80:80
+      - 443:443
